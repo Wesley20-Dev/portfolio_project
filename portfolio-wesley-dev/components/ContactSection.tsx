@@ -6,9 +6,9 @@ import { useState } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 
 const INFO = [
-  { icon: "mail",        label: "david.irie@email.com",       href: "mailto:david.irie@email.com" },
-  { icon: "code",        label: "github.com/david-irie",      href: "https://github.com" },
-  { icon: "work",        label: "linkedin.com/in/david-irie", href: "https://linkedin.com" },
+  { icon: "mail",        label: "wesley.irie@epitech.eu",       href: "mailto:wesley.irie@epitech.eu" },
+  { icon: "code",        label: "github.com/Wesley20-Dev",      href: "https://github.com/Wesley20-Dev" },
+  { icon: "work",        label: "linkedin.com/in/david-irie", href: "https://www.linkedin.com/in/david-wesley-irié-bi-363663298" },
   { icon: "location_on", label: "Abidjan, Côte d'Ivoire · Remote OK", href: undefined },
 ];
 

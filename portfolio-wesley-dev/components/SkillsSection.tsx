@@ -2,10 +2,11 @@
 // components/SkillsSection.tsx
 // Skills avec vrais logos SVG inline + animations stagger au scroll.
 
+import React from "react";
 import RevealOnScroll from "./RevealOnScroll";
 
 /* SVG LOGOS — inline, coloriables via fill/color CSS*/
-const LOGOS: Record<string, JSX.Element> = {
+const LOGOS: Record<string, React.ReactElement> = {
   JavaScript: (
     <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
       <rect width="32" height="32" rx="4" fill="#F7DF1E"/>

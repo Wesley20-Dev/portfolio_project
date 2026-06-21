@@ -9,7 +9,7 @@ export default function Footer() {
     >
       <div className="text-center md:text-left">
         <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-pink-light">
-          DAVID.DEV
+          WESLEY.DEV
         </p>
         <p className="text-[13px] text-zinc-500 mt-1">
           © {new Date().getFullYear()} Bi David Weslé IRIÉ · Développeur Full-Stack Junior
@@ -18,9 +18,9 @@ export default function Footer() {
 
       <div className="flex gap-8">
         {[
-          { label: "GitHub",   href: "https://github.com" },
-          { label: "LinkedIn", href: "https://linkedin.com" },
-          { label: "Email",    href: "mailto:david.irie@email.com" },
+          { label: "GitHub",   href: "https://github.com/Wesley20-Dev" },
+          { label: "LinkedIn", href: "https://www.linkedin.com/in/david-wesley-irié-bi-363663298" },
+          { label: "Email",    href: "mailto:wesley.irie@epitech.com" },
         ].map(({ label, href }) => (
           <a
             key={label}

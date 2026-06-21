@@ -7,7 +7,7 @@ import RevealOnScroll from "./RevealOnScroll";
 
 const PROJECTS: (Project & { reverse?: boolean })[] = [
   {
-    title:       "Film Engine Application",
+    title:       "Application de gestion de films",
     description: "Plateforme de streaming et consultation intégrant l'API TMDB, authentification Google OAuth et dashboard admin complet pour la gestion du catalogue.",
     tags:        ["Next.js", "NestJS", "Tailwind CSS", "OAuth"],
     primaryTag:  "Streaming",
@@ -27,10 +27,11 @@ const PROJECTS: (Project & { reverse?: boolean })[] = [
       { hl: true,  text: "// Dashboard Admin" },
       { text: "const stats = await getStreamStats()" },
     ],
+    href: "https://my-rotten-tomatoes-five.vercel.app/",
     reverse: false,
   },
   {
-    title:       "Trello Workspace Mobile Sync",
+    title:       "Application mobile de gestion de worksape Trello",
     description: "Application de productivité mobile connectée nativement à l'API officielle Trello, gérant l'état complexe et la navigation multi-écrans.",
     tags:        ["React Native", "Trello API", "OAuth", "State Management"],
     primaryTag:  "Mobile",
@@ -49,6 +50,7 @@ const PROJECTS: (Project & { reverse?: boolean })[] = [
       { hl: true,  text: "// State Management" },
       { text: "dispatch(updateCards(cards))" },
     ],
+    href: "https://expo.dev/artifacts/eas/bGbn2At4ZJ4ox7PuF2aE1j.apk",
     reverse: true,
   },
   {
@@ -75,26 +77,28 @@ const PROJECTS: (Project & { reverse?: boolean })[] = [
     reverse: false,
   },
   {
-    title:       "E-Commerce & Management Platform",
-    description: "Moteur de vente en ligne complet avec catalogue dynamique, panier persistant et tableau de bord d'administration pour la gestion des stocks.",
-    tags:        ["PHP", "MySQL", "HTML5/CSS3"],
-    primaryTag:  "E-Commerce",
-    secondaryTag:"PHP / MySQL",
-    codeLines: [
-      { hl: true,  text: "// E-Commerce Engine" },
-      { text: "session_start()" },
-      { text: "" },
-      { hl: true,  text: "function addToCart($id, $qty) {" },
-      { text: "  $_SESSION['cart'][$id] = $qty" },
-      { text: "}" },
-      { text: "" },
-      { hl: true,  text: "// Admin dashboard" },
-      { text: "$stmt = $pdo->prepare(" },
-      { text: '  "SELECT * FROM products"' },
-      { text: ")" },
+    title: "Application de Gestion de Notes",
+    description: "Application de gestion de notes personnelles avec création, modification, suppression et consultation de notes, connectée à une API REST pour la persistance des données.",
+    tags: ["Vue.js", "API REST", "JavaScript"],
+    primaryTag: "Notes App",
+    secondaryTag: "API REST",
+    "codeLines": [
+      { "hl": true,  "text": "// Gestion de notes — Vue.js" },
+      { "text": "const notes = ref([])" },
+      { "text": "" },
+      { "hl": true,  "text": "async function fetchNotes() {" },
+      { "text": "  const res = await api.get('/notes')" },
+      { "text": "  notes.value = res.data" },
+      { "text": "}" },
+      { "text": "" },
+      { "hl": true,  "text": "// CRUD operations" },
+      { "text": "await api.post('/notes', newNote)" },
+      { "text": "await api.put('/notes/:id', edits)" },
+      { "text": "await api.delete('/notes/:id')" }
     ],
-    reverse: true,
-  },
+    href: "https://post-it-wesley-dev.vercel.app/",
+    reverse: false
+  }
 ];
 
 export default function ProjectsSection() {
