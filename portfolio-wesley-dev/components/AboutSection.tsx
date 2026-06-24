@@ -118,7 +118,7 @@ export default function AboutSection() {
           <RevealOnScroll delay={0.2}>
             <p>
               Je suis passionné par l'architecture logicielle propre, les API
-              robustes, et les interfaces qui respirent — convaincu que le code
+              robustes, et les interfaces qui respirent, convaincu que le code
               de qualité est la forme la plus durable d'artisanat numérique.
             </p>
           </RevealOnScroll>

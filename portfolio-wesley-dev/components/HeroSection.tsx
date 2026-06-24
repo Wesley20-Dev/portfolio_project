@@ -36,7 +36,7 @@ function FloatingBadge({
 }
 
 export default function HeroSection() {
-  const [ma_pp, setMapp] = useState<string|null>("/pro_photo1.png")
+  const [ma_pp, setMapp] = useState<string|null>("/pro.png")
   const scrollTo = (id: string) => {
     const el = document.querySelector(id);
     if (el) window.scrollTo({ top: (el as HTMLElement).offsetTop - 72, behavior: "smooth" });
