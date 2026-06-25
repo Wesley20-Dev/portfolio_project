@@ -7,18 +7,30 @@ import RevealOnScroll from "./RevealOnScroll";
 import Image from "next/image";
 
 export interface Project {
-  title:       string;
-  description: string;
-  tags:        string[];
-  primaryTag:  string;
-  secondaryTag:string;
-  codeLines:   { hl?: boolean; text: string }[];
-  image?:      { src: string; alt: string };
-  href?:       string;
+  title:        string;
+  description:  string;
+  tags:         string[];
+  primaryTag:   string;
+  secondaryTag: string;
+  codeLines:    { hl?: boolean; text: string }[];
+  /**
+   * Si défini, Thum.io génère automatiquement une capture d'écran de cette URL.
+   * Priorité : image > screenshotUrl > codeLines
+   */
+  screenshotUrl?: string;
+  image?:       { src: string; alt: string };
+  href?:        string;
 }
 
 interface Props extends Project {
   reverse?: boolean;
+}
+
+/** Construit l'URL Thum.io pour capturer automatiquement un site web */
+function buildThumioUrl(targetUrl: string): string {
+  // Thum.io — API publique de screenshot (aucune clé requise pour l'usage basique)
+  // Format : https://image.thum.io/get/width/1280/crop/720/{url}
+  return `https://image.thum.io/get/width/1280/crop/720/${targetUrl}`;
 }
 
 export default function ProjectCard({
@@ -28,10 +40,18 @@ export default function ProjectCard({
   primaryTag,
   secondaryTag,
   codeLines,
+  screenshotUrl,
   image,
   href = "#",
   reverse = false,
 }: Props) {
+  // Résolution de la source visuelle selon la priorité : image > screenshotUrl > codeLines
+  const resolvedImage: { src: string; alt: string } | null =
+    image
+      ? image
+      : screenshotUrl
+      ? { src: buildThumioUrl(screenshotUrl), alt: `Capture du projet ${title}` }
+      : null;
   return (
     <RevealOnScroll>
       <div
@@ -57,15 +77,18 @@ export default function ProjectCard({
           }`}
           style={{ background: "var(--code-bg)" }}
         >
-          {image ? (
+          {resolvedImage ? (
+            /* ── Visuel : image locale OU screenshot Thum.io ── */
             <Image
-              src={image.src}
-              alt={image.alt}
+              src={resolvedImage.src}
+              alt={resolvedImage.alt}
               fill
+              unoptimized={!!screenshotUrl && !image} // Thum.io renvoie déjà une image optimisée
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
             />
           ) : (
+            /* ── Fallback : bloc de code ── */
             <div
               className="font-mono text-[11px] leading-[1.8] p-8 h-full w-full overflow-hidden transition-transform duration-700 group-hover:scale-[1.03]"
               style={{ color: "var(--code-text)" }}
@@ -100,7 +123,11 @@ export default function ProjectCard({
           <div className="flex flex-wrap gap-2">
             <span
               className="font-mono text-[10px] tracking-[0.10em] uppercase px-3 py-1 rounded-full"
-              style={{ background: "rgba(255,20,147,0.12)", border: "1px solid rgba(255,20,147,0.20)", color: "#ffb0ca" }}
+              style={{ 
+                background: "var(--tag-bg)", 
+                border: "1px solid var(--tag-border)", 
+                color: "var(--tag-text)" 
+              }}
             >
               {primaryTag}
             </span>

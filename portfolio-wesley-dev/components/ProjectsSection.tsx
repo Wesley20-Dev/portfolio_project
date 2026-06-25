@@ -6,18 +6,25 @@ import { useState } from "react";
 import ProjectCard, { Project } from "./ProjectCard";
 import RevealOnScroll from "./RevealOnScroll";
 
+// ─── Configuration des projets ────────────────────────────────────────────────
+// Pour activer la capture Thum.io sur un projet, ajoutez le champ :
+//   screenshotUrl: "https://url-du-projet.com"
+// Laissez ce champ absent pour afficher le bloc de code à la place.
+// ──────────────────────────────────────────────────────────────────────────────
+
 const PROJECTS: (Project & { reverse?: boolean })[] = [
   {
-    title:       "Application de gestion de films",
+    // ✅ Image locale — screenshot Thum.io désactivé
+    title: "Application de gestion de films",
     description: "Plateforme de streaming et consultation intégrant l'API TMDB, authentification Google OAuth et dashboard admin complet pour la gestion du catalogue.",
-    tags:        ["Next.js", "NestJS", "Tailwind CSS", "OAuth"],
-    primaryTag:  "Streaming",
-    secondaryTag:"Web App",
+    tags: ["Next.js", "NestJS", "Tailwind CSS", "OAuth"],
+    primaryTag: "Streaming",
+    secondaryTag: "Web App",
     codeLines: [
-      { hl: true,  text: "import { tmdb } from '@/lib/api'" },
-      { hl: true,  text: "import { OAuth } from 'next-auth'" },
+      { hl: true, text: "import { tmdb } from '@/lib/api'" },
+      { hl: true, text: "import { OAuth } from 'next-auth'" },
       { text: "" },
-      { hl: true,  text: "export async function getMovies(" },
+      { hl: true, text: "export async function getMovies(" },
       { text: "  query: string," },
       { text: "  page: number = 1" },
       { text: ") {" },
@@ -25,81 +32,88 @@ const PROJECTS: (Project & { reverse?: boolean })[] = [
       { text: "  return data.results" },
       { text: "}" },
       { text: "" },
-      { hl: true,  text: "// Dashboard Admin" },
+      { hl: true, text: "// Dashboard Admin" },
       { text: "const stats = await getStreamStats()" },
     ],
+    screenshotUrl: "https://my-rotten-tomatoes-five.vercel.app/",
     href: "https://my-rotten-tomatoes-five.vercel.app/",
     reverse: false,
   },
   {
-    title:       "Application mobile de gestion de worksape Trello",
+    // 🖥️  Pas de screenshot — le bloc de code reste affiché (APK, pas de web URL)
+    title: "Application mobile de gestion de workspace Trello",
     description: "Application de productivité mobile connectée nativement à l'API officielle Trello, gérant l'état complexe et la navigation multi-écrans.",
-    tags:        ["React Native", "Trello API", "OAuth", "State Management"],
-    primaryTag:  "Mobile",
-    secondaryTag:"Productivité",
+    tags: ["React Native", "Trello API", "OAuth", "State Management"],
+    primaryTag: "Mobile",
+    secondaryTag: "Productivité",
     codeLines: [
-      { hl: true,  text: "import Trello from 'trello-client'" },
+      { hl: true, text: "import Trello from 'trello-client'" },
       { text: "" },
-      { hl: true,  text: "const board = await Trello" },
+      { hl: true, text: "const board = await Trello" },
       { text: "  .getBoard(boardId)" },
       { text: "" },
-      { hl: true,  text: "// Native Mobile Sync" },
+      { hl: true, text: "// Native Mobile Sync" },
       { text: "useEffect(() => {" },
       { text: "  syncCards(board.cards)" },
       { text: "}, [board])" },
       { text: "" },
-      { hl: true,  text: "// State Management" },
+      { hl: true, text: "// State Management" },
       { text: "dispatch(updateCards(cards))" },
     ],
+    // screenshotUrl absent → affiche le codeLines
     href: "https://expo.dev/artifacts/eas/bGbn2At4ZJ4ox7PuF2aE1j.apk",
     reverse: true,
   },
   {
-    title:       "Réseau Social & Capture Automatisée",
+    // 📸 Screenshot Thum.io activé — remplace le codeLines automatiquement
+    title: "Réseau Social & Capture Automatisée",
     description: "Plateforme communautaire complète avec gestion des commentaires et un service automatisé de captures d'écran des posts via job queue.",
-    tags:        ["Laravel", "Vue.js", "MySQL", "Tailwind CSS"],
-    primaryTag:  "Social",
-    secondaryTag:"Full-Stack",
+    tags: ["Laravel", "Vue.js", "MySQL", "Tailwind CSS"],
+    primaryTag: "Social",
+    secondaryTag: "Full-Stack",
     codeLines: [
-      { hl: true,  text: "// Réseau Social Full-Stack" },
+      { hl: true, text: "// Réseau Social Full-Stack" },
       { text: "Route::resource('posts'," },
       { text: "  PostController::class)" },
       { text: "" },
-      { hl: true,  text: "// Screenshot Service" },
+      { hl: true, text: "// Screenshot Service" },
       { text: "class ScreenshotJob extends Job {" },
       { text: "  handle() {" },
       { text: "    puppeteer.capture(this.url)" },
       { text: "  }" },
       { text: "}" },
       { text: "" },
-      { hl: true,  text: "// Commentaires" },
+      { hl: true, text: "// Commentaires" },
       { text: "$post->comments()->create($data)" },
     ],
+    href: "https://github.com/Wesley20-Dev",
     reverse: false,
   },
   {
+    // 📸 Screenshot Thum.io activé — affiche une preview live du site
     title: "Application de Gestion de Notes",
     description: "Application de gestion de notes personnelles avec création, modification, suppression et consultation de notes, connectée à une API REST pour la persistance des données.",
     tags: ["Vue.js", "API REST", "JavaScript"],
     primaryTag: "Notes App",
     secondaryTag: "API REST",
-    "codeLines": [
-      { "hl": true,  "text": "// Gestion de notes — Vue.js" },
-      { "text": "const notes = ref([])" },
-      { "text": "" },
-      { "hl": true,  "text": "async function fetchNotes() {" },
-      { "text": "  const res = await api.get('/notes')" },
-      { "text": "  notes.value = res.data" },
-      { "text": "}" },
-      { "text": "" },
-      { "hl": true,  "text": "// CRUD operations" },
-      { "text": "await api.post('/notes', newNote)" },
-      { "text": "await api.put('/notes/:id', edits)" },
-      { "text": "await api.delete('/notes/:id')" }
+    codeLines: [
+      { hl: true, text: "// Gestion de notes — Vue.js" },
+      { text: "const notes = ref([])" },
+      { text: "" },
+      { hl: true, text: "async function fetchNotes() {" },
+      { text: "  const res = await api.get('/notes')" },
+      { text: "  notes.value = res.data" },
+      { text: "}" },
+      { text: "" },
+      { hl: true, text: "// CRUD operations" },
+      { text: "await api.post('/notes', newNote)" },
+      { text: "await api.put('/notes/:id', edits)" },
+      { text: "await api.delete('/notes/:id')" },
     ],
+    screenshotUrl: "https://post-it-wesley-dev.vercel.app/", // capture live Thum.io
     href: "https://post-it-wesley-dev.vercel.app/",
-    reverse: false
-  }
+    reverse: false,
+  },
 ];
 
 export default function ProjectsSection() {

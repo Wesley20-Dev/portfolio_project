@@ -56,7 +56,7 @@ export default function Navbar() {
         height: 72,
       }}
     >
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16 flex items-center justify-between h-full">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10 flex items-center justify-between h-full">
 
         {/* Logo */}
         <a
@@ -70,7 +70,7 @@ export default function Navbar() {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-5">
           {LINKS.map(({ href, label }) => {
             const isActive = active === href.slice(1);
             return (
