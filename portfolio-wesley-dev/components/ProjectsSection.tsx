@@ -2,6 +2,7 @@
 // components/ProjectsSection.tsx
 // Lists all projects using the ProjectCard component.
 
+import { useState } from "react";
 import ProjectCard, { Project } from "./ProjectCard";
 import RevealOnScroll from "./RevealOnScroll";
 
@@ -102,6 +103,12 @@ const PROJECTS: (Project & { reverse?: boolean })[] = [
 ];
 
 export default function ProjectsSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const goToProject = (index: number) => {
+    setActiveIndex((index + PROJECTS.length) % PROJECTS.length);
+  };
+
   return (
     <section id="projects" className="py-36 px-6 md:px-16 max-w-[1280px] mx-auto">
       {/* Header */}
@@ -120,18 +127,79 @@ export default function ProjectsSection() {
           </RevealOnScroll>
         </div>
         <RevealOnScroll delay={0.2}>
-          <p className="text-zinc-400 text-[15px] leading-[1.7] max-w-xs">
-            Chaque projet représente un défi unique résolu par une architecture
-            technique réfléchie et du code propre.
-          </p>
+          <div className="flex flex-col items-start md:items-end gap-5">
+            <p className="text-[15px] leading-[1.7] max-w-xs md:text-right" style={{ color: "var(--muted)" }}>
+              Chaque projet représente un défi unique résolu par une architecture
+              technique réfléchie et du code propre.
+            </p>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => goToProject(activeIndex - 1)}
+                aria-label="Projet précédent"
+                className="grid h-11 w-11 place-items-center rounded-full transition-all duration-200 hover:-translate-y-0.5 active:scale-95"
+                style={{
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
+                  color: "var(--foreground)",
+                }}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: 20 }}>
+                  arrow_back
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => goToProject(activeIndex + 1)}
+                aria-label="Projet suivant"
+                className="grid h-11 w-11 place-items-center rounded-full transition-all duration-200 hover:-translate-y-0.5 active:scale-95"
+                style={{
+                  background: "linear-gradient(135deg,#ff479c,#ff1493)",
+                  boxShadow: "0 4px 24px rgba(255,20,147,0.25)",
+                  color: "#fff",
+                }}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: 20 }}>
+                  arrow_forward
+                </span>
+              </button>
+            </div>
+          </div>
         </RevealOnScroll>
       </div>
 
-      {/* Cards */}
-      <div className="flex flex-col gap-7">
-        {PROJECTS.map((project) => (
-          <ProjectCard key={project.title} {...project} />
-        ))}
+      {/* Carousel */}
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        >
+          {PROJECTS.map((project) => (
+            <div key={project.title} className="min-w-full">
+              <ProjectCard {...project} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-7 flex justify-center gap-2">
+        {PROJECTS.map((project, index) => {
+          const isActive = index === activeIndex;
+
+          return (
+            <button
+              key={project.title}
+              type="button"
+              onClick={() => goToProject(index)}
+              aria-label={`Afficher le projet ${index + 1}`}
+              className="h-2.5 rounded-full transition-all duration-300"
+              style={{
+                width: isActive ? 28 : 10,
+                background: isActive ? "#ff1493" : "var(--border)",
+              }}
+            />
+          );
+        })}
       </div>
     </section>
   );

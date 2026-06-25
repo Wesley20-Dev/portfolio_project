@@ -23,7 +23,7 @@ export default function Home() {
       <CursorGlow />
 
       {/* ── Layer 1: page content ─────────────── */}
-      <div className="relative z-10 min-h-screen text-white selection:bg-pink-light/20">
+      <div className="relative z-10 min-h-screen selection:bg-pink-light/20">
 
         <Navbar />
 

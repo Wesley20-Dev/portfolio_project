@@ -3,6 +3,7 @@
 // Glassmorphic floating nav with active-section tracking on scroll.
 
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const LINKS = [
   { href: "#home",     label: "Home" },
@@ -48,10 +49,10 @@ export default function Navbar() {
     <header
       className="fixed top-0 w-full z-50 transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(0,0,0,0.92)" : "rgba(0,0,0,0.70)",
+        background: scrolled ? "var(--nav-bg-scrolled)" : "var(--nav-bg)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(255,255,255,0.10)",
+        borderBottom: "1px solid var(--border)",
         height: 72,
       }}
     >
@@ -77,9 +78,8 @@ export default function Navbar() {
                 key={href}
                 href={href}
                 onClick={(e) => handleClick(e, href)}
-                className={`text-[13px] font-medium transition-colors duration-200 relative pb-1 ${
-                  isActive ? "text-white" : "text-zinc-400 hover:text-white"
-                }`}
+                className="text-[13px] font-medium transition-colors duration-200 relative pb-1 hover:text-pink-light"
+                style={{ color: isActive ? "var(--foreground)" : "var(--muted)" }}
               >
                 {label}
                 <span
@@ -91,51 +91,61 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* CTA button */}
-        <a
-          href="#contact"
-          onClick={(e) => handleClick(e, "#contact")}
-          className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-bold text-white transition-all duration-200 hover:opacity-90 hover:shadow-[0_8px_32px_rgba(255,20,147,0.3)]"
-          style={{ background: "linear-gradient(135deg,#ff479c,#ff1493)" }}
-        >
-          <span className="material-symbols-outlined" style={{ fontSize: 16 }}>mail</span>
-          Prendre contact
-        </a>
+        <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
+          <a
+            href="#contact"
+            onClick={(e) => handleClick(e, "#contact")}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-bold text-white transition-all duration-200 hover:opacity-90 hover:shadow-[0_8px_32px_rgba(255,20,147,0.3)]"
+            style={{ background: "linear-gradient(135deg,#ff479c,#ff1493)" }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>mail</span>
+            Prendre contact
+          </a>
+        </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden flex flex-col gap-[5px] p-1 cursor-pointer"
-          onClick={() => setMenuOpen((v) => !v)}
-          aria-label="Menu"
-        >
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className="block w-6 h-0.5 bg-white rounded-sm transition-all duration-300"
-              style={{
-                transform:
-                  menuOpen && i === 0 ? "rotate(45deg) translateY(7px)"
-                  : menuOpen && i === 2 ? "rotate(-45deg) translateY(-7px)"
-                  : "none",
-                opacity: menuOpen && i === 1 ? 0 : 1,
-              }}
-            />
-          ))}
-        </button>
+        <div className="md:hidden flex items-center gap-3">
+          <ThemeToggle />
+          <button
+            className="flex flex-col gap-[5px] p-1 cursor-pointer"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Menu"
+          >
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className="block w-6 h-0.5 rounded-sm transition-all duration-300"
+                style={{
+                  background: "var(--foreground)",
+                  transform:
+                    menuOpen && i === 0 ? "rotate(45deg) translateY(7px)"
+                    : menuOpen && i === 2 ? "rotate(-45deg) translateY(-7px)"
+                    : "none",
+                  opacity: menuOpen && i === 1 ? 0 : 1,
+                }}
+              />
+            ))}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu dropdown */}
       {menuOpen && (
         <div
-          className="md:hidden border-t border-white/10"
-          style={{ background: "rgba(0,0,0,0.96)", backdropFilter: "blur(24px)" }}
+          className="md:hidden"
+          style={{
+            background: "var(--menu-bg)",
+            backdropFilter: "blur(24px)",
+            borderTop: "1px solid var(--border)",
+          }}
         >
           {LINKS.map(({ href, label }) => (
             <a
               key={href}
               href={href}
               onClick={(e) => handleClick(e, href)}
-              className="block px-6 py-4 text-sm font-medium text-zinc-300 hover:text-white border-b border-white/5 transition-colors"
+              className="block px-6 py-4 text-sm font-medium hover:text-pink-light transition-colors"
+              style={{ color: "var(--muted)", borderBottom: "1px solid var(--border-soft)" }}
             >
               {label}
             </a>

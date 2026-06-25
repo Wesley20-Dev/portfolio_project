@@ -20,6 +20,7 @@ const FRAG = `
   uniform float u_time;
   uniform vec2  u_res;
   uniform vec2  u_mouse;
+  uniform float u_light;
 
   float rnd(vec2 st) {
     return fract(sin(dot(st, vec2(12.9898, 78.233))) * 43758.5453);
@@ -31,7 +32,9 @@ const FRAG = `
     vec2 gid = floor(st);
     vec2 gf  = fract(st);
 
-    vec3 bg      = vec3(0.0);
+    vec3 darkBg  = vec3(0.0);
+    vec3 lightBg = vec3(1.0, 0.973, 0.988);
+    vec3 bg      = mix(darkBg, lightBg, u_light);
     vec3 dotCol  = vec3(1.0, 0.078, 0.576);   /* #ff1493 */
 
     vec2  mUV  = u_mouse / u_res;
@@ -45,8 +48,9 @@ const FRAG = `
     float d   = length(gf - 0.5);
     float dot = 1.0 - smoothstep(r - 0.012, r + 0.012, d);
 
-    vec3 col  = mix(bg, dotCol, dot * (0.18 + hover * 0.82));
-    col      += dotCol * hover * 0.03;
+    float baseAlpha = mix(0.18, 0.10, u_light);
+    vec3 col  = mix(bg, dotCol, dot * (baseAlpha + hover * 0.82));
+    col      += dotCol * hover * mix(0.03, 0.015, u_light);
 
     gl_FragColor = vec4(col, 1.0);
   }
@@ -86,6 +90,7 @@ export default function WebGLBackground() {
     const uTime  = gl.getUniformLocation(prog, "u_time");
     const uRes   = gl.getUniformLocation(prog, "u_res");
     const uMouse = gl.getUniformLocation(prog, "u_mouse");
+    const uLight = gl.getUniformLocation(prog, "u_light");
 
     let mx = 0, my = 0;
     const onMove = (e: MouseEvent) => { mx = e.clientX; my = innerHeight - e.clientY; };
@@ -104,6 +109,10 @@ export default function WebGLBackground() {
       gl!.uniform1f(uTime,  t);
       gl!.uniform2f(uRes,   innerWidth, innerHeight);
       gl!.uniform2f(uMouse, mx, my);
+      gl!.uniform1f(
+        uLight,
+        document.documentElement.getAttribute("data-theme") === "light" ? 1.0 : 0.0
+      );
       gl!.drawArrays(gl!.TRIANGLES, 0, 6);
       raf = requestAnimationFrame(draw);
     }

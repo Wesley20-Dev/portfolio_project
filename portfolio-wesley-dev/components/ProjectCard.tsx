@@ -4,6 +4,7 @@
 // Accepts a "reverse" prop to alternate left/right layout.
 
 import RevealOnScroll from "./RevealOnScroll";
+import Image from "next/image";
 
 export interface Project {
   title:       string;
@@ -12,6 +13,7 @@ export interface Project {
   primaryTag:  string;
   secondaryTag:string;
   codeLines:   { hl?: boolean; text: string }[];
+  image?:      { src: string; alt: string };
   href?:       string;
 }
 
@@ -26,6 +28,7 @@ export default function ProjectCard({
   primaryTag,
   secondaryTag,
   codeLines,
+  image,
   href = "#",
   reverse = false,
 }: Props) {
@@ -33,43 +36,57 @@ export default function ProjectCard({
     <RevealOnScroll>
       <div
         className={`grid grid-cols-1 md:grid-cols-2 rounded-[24px] overflow-hidden border border-white/10 transition-all duration-500 group`}
-        style={{ background: "rgba(255,255,255,0.025)", backdropFilter: "blur(12px)" }}
+        style={{
+          background: "var(--surface)",
+          borderColor: "var(--border)",
+          backdropFilter: "blur(12px)",
+        }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,20,147,0.30)";
           (e.currentTarget as HTMLElement).style.boxShadow   = "0 0 60px rgba(255,20,147,0.08)";
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.10)";
+          (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
           (e.currentTarget as HTMLElement).style.boxShadow   = "none";
         }}
       >
-        {/* Code visual — order changes for reverse */}
+        {/* Visual — image when available, code fallback otherwise */}
         <div
           className={`relative overflow-hidden min-h-[260px] ${
             reverse ? "md:order-last" : "md:order-first"
           }`}
-          style={{ background: "#0a0a0a" }}
+          style={{ background: "var(--code-bg)" }}
         >
-          <div
-            className="font-mono text-[11px] leading-[1.8] p-8 h-full w-full overflow-hidden text-pink-light/50 transition-transform duration-700 group-hover:scale-[1.03]"
-          >
-            {codeLines.map((line, i) => (
-              <div key={i}>
-                <span style={{ color: "rgba(255,255,255,0.12)", userSelect: "none", marginRight: 16 }}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                {line.hl ? (
-                  <span style={{ color: "#ffb0ca" }}>{line.text}</span>
-                ) : (
-                  <span>{line.text}</span>
-                )}
-              </div>
-            ))}
-          </div>
-          {/* fade overlay */}
+          {image ? (
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            />
+          ) : (
+            <div
+              className="font-mono text-[11px] leading-[1.8] p-8 h-full w-full overflow-hidden transition-transform duration-700 group-hover:scale-[1.03]"
+              style={{ color: "var(--code-text)" }}
+            >
+              {codeLines.map((line, i) => (
+                <div key={i}>
+                  <span style={{ color: "var(--code-line)", userSelect: "none", marginRight: 16 }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {line.hl ? (
+                    <span style={{ color: "#ffb0ca" }}>{line.text}</span>
+                  ) : (
+                    <span>{line.text}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
           <div
             className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(135deg, transparent 55%, rgba(0,0,0,0.55))" }}
+            style={{ background: "var(--code-fade)" }}
           />
         </div>
 
@@ -89,7 +106,11 @@ export default function ProjectCard({
             </span>
             <span
               className="font-mono text-[10px] tracking-[0.10em] uppercase px-3 py-1 rounded-full"
-              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.50)" }}
+              style={{
+                background: "var(--surface-strong)",
+                border: "1px solid var(--border-soft)",
+                color: "var(--subtle)",
+              }}
             >
               {secondaryTag}
             </span>
@@ -101,7 +122,7 @@ export default function ProjectCard({
           </h3>
 
           {/* Description */}
-          <p className="text-[15px] text-zinc-400 leading-[1.75] font-light">
+          <p className="text-[15px] leading-[1.75] font-light" style={{ color: "var(--muted)" }}>
             {description}
           </p>
 
@@ -110,8 +131,12 @@ export default function ProjectCard({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="font-mono text-[10px] px-2.5 py-1 rounded-md text-zinc-500"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+                className="font-mono text-[10px] px-2.5 py-1 rounded-md"
+                style={{
+                  background: "var(--surface-strong)",
+                  border: "1px solid var(--border-soft)",
+                  color: "var(--subtle)",
+                }}
               >
                 {tag}
               </span>

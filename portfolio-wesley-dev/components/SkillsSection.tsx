@@ -209,37 +209,40 @@ function SkillChip({ name, index }: { name: string; index: number }) {
 
   return (
     <div
-      className="group flex flex-col items-center gap-3 p-2 rounded-2xl cursor-default select-none transition-all duration-300"
+      className="group flex flex-col items-center gap-2 p-1.5 rounded-xl cursor-default select-none transition-all duration-300"
       style={{
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(255,255,255,0.08)",
+        background: "var(--surface)",
+        border: "1px solid var(--border-soft)",
         animationDelay: `${index * 60}ms`,
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLElement;
         el.style.border = "1px solid rgba(255,20,147,0.35)";
         el.style.background = "rgba(255,20,147,0.06)";
-        el.style.transform = "translateY(-4px)";
-        el.style.boxShadow = "0 8px 32px rgba(255,20,147,0.15)";
+        el.style.transform = "translateY(-2px)";
+        el.style.boxShadow = "0 6px 24px rgba(255,20,147,0.12)";
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget as HTMLElement;
-        el.style.border = "1px solid rgba(255,255,255,0.08)";
-        el.style.background = "rgba(255,255,255,0.03)";
+        el.style.border = "1px solid var(--border-soft)";
+        el.style.background = "var(--surface)";
         el.style.transform = "translateY(0)";
         el.style.boxShadow = "none";
       }}
     >
       {/* Logo */}
-      <div className="w-10 h-10 flex items-center justify-center rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-110">
+      <div className="w-8 h-8 flex items-center justify-center rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-105 [&>svg]:h-full [&>svg]:w-full">
         {logo ?? (
-          <span className="material-symbols-outlined text-pink-light" style={{ fontSize: 28 }}>
+          <span className="material-symbols-outlined text-pink-light" style={{ fontSize: 22 }}>
             code
           </span>
         )}
       </div>
       {/* Label */}
-      <span className="font-mono text-[10px] tracking-[0.08em] uppercase text-zinc-400 text-center transition-colors duration-200 group-hover:text-white leading-tight">
+      <span
+        className="font-mono text-[9px] tracking-[0.08em] uppercase text-center transition-colors duration-200 group-hover:text-pink-light leading-tight"
+        style={{ color: "var(--muted)" }}
+      >
         {name}
       </span>
     </div>
@@ -270,7 +273,7 @@ export default function SkillsSection() {
       </RevealOnScroll>
 
       {/* Catégories */}
-      <div className="space-y-14">
+      <div className="space-y-10">
         {CATEGORIES.map(({ title, color, skills }, catIdx) => (
           <RevealOnScroll key={title} delay={catIdx * 0.08}>
             {/* Category header */}
@@ -292,7 +295,7 @@ export default function SkillsSection() {
             </div>
 
             {/* Skills grid */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-10 gap-2">
               {skills.map((skill, i) => (
                 <SkillChip key={skill} name={skill} index={i + catIdx * 4} />
               ))}

@@ -2,41 +2,39 @@
 // components/HeroSection.tsx
 // Hero 2-col: texte à gauche, carte photo glassmorphique à droite (style Stitch Luminous Noir)
 
-import { useEffect, useRef, useState } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import Image from "next/image";
 
 
 /* ── Floating badge (réutilisé dans la carte) ─── */
 function FloatingBadge({
-  icon, label, sub, style,
+  icon, label, sub, className = "",
 }: {
-  icon: string; label: string; sub: string; style?: React.CSSProperties;
+  icon: string; label: string; sub: string; className?: string;
 }) {
   return (
     <div
-      className="absolute flex items-center gap-3 px-4 py-3 rounded-2xl z-20 animate-float"
+      className={`absolute flex items-center gap-3 px-3 py-2.5 sm:px-4 sm:py-3 rounded-2xl z-20 animate-float ${className}`}
       style={{
-        background: "rgba(10,10,10,0.85)",
+        background: "var(--menu-bg)",
         backdropFilter: "blur(16px)",
-        border: "1px solid rgba(255,255,255,0.12)",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
-        ...style,
+        border: "1px solid var(--border)",
+        boxShadow: "0 8px 32px var(--shadow-soft)",
       }}
     >
       <span className="material-symbols-outlined text-pink-light" style={{ fontSize: 18 }}>
         {icon}
       </span>
       <div>
-        <p className="text-white text-[12px] font-semibold leading-tight">{label}</p>
-        <p className="text-zinc-500 text-[10px] font-mono">{sub}</p>
+        <p className="text-[12px] font-semibold leading-tight" style={{ color: "var(--foreground)" }}>{label}</p>
+        <p className="text-[10px] font-mono" style={{ color: "var(--subtle)" }}>{sub}</p>
       </div>
     </div>
   );
 }
 
 export default function HeroSection() {
-  const [ma_pp, setMapp] = useState<string|null>("/pro.png")
+  const profileImage = "/pro.png";
   const scrollTo = (id: string) => {
     const el = document.querySelector(id);
     if (el) window.scrollTo({ top: (el as HTMLElement).offsetTop - 72, behavior: "smooth" });
@@ -45,10 +43,10 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center px-6 md:px-16 max-w-[1280px] mx-auto pt-[72px]"
+      className="relative min-h-screen flex items-center px-6 md:px-16 max-w-[1280px] mx-auto pt-[104px] pb-16 lg:pt-[72px] lg:pb-0"
     >
       {/* ── 2-col grid ─────────────────────────────────── */}
-      <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-16 xl:gap-24 items-center">
+      <div className="w-full grid grid-cols-1 md:grid-cols-[1fr_420px] gap-12 lg:gap-16 xl:gap-24 items-center">
 
         {/* ── LEFT: texte ───────────────────────────────── */}
         <div>
@@ -80,8 +78,8 @@ export default function HeroSection() {
           {/* Titre */}
           <RevealOnScroll delay={0.2}>
             <p
-              className="font-display font-bold text-zinc-400 tracking-[-0.02em] mb-6"
-              style={{ fontSize: "clamp(18px, 3.2vw, 30px)" }}
+              className="font-display font-bold tracking-[-0.02em] mb-6"
+              style={{ color: "var(--muted)", fontSize: "clamp(18px, 3.2vw, 30px)" }}
             >
               Développeur Full-Stack Junior
             </p>
@@ -89,13 +87,13 @@ export default function HeroSection() {
 
           {/* Description */}
           <RevealOnScroll delay={0.3}>
-            <p className="text-[17px] font-light text-zinc-400 leading-[1.8] max-w-[540px] mb-10">
+            <p className="text-[17px] font-light leading-[1.8] max-w-[540px] mb-10" style={{ color: "var(--muted)" }}>
               Formé à{" "}
-              <strong className="text-white font-medium">
+              <strong className="font-medium" style={{ color: "var(--foreground)" }}>
                 WeCode (Coding Academy by Epitech)
               </strong>
               . Conçoit des architectures web et mobiles scalables, robustes et
-              hautement interactives — avec une passion pour l'ingénierie logicielle soignée.
+              hautement interactives — avec une passion pour l&apos;ingénierie logicielle soignée.
             </p>
           </RevealOnScroll>
 
@@ -117,7 +115,12 @@ export default function HeroSection() {
               </button>
               <button
                 onClick={() => scrollTo("#contact")}
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-display font-bold text-[14px] text-white border border-white/10 transition-all duration-200 hover:bg-white/5 hover:border-white/20"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-display font-bold text-[14px] transition-all duration-200"
+                style={{
+                  color: "var(--foreground)",
+                  border: "1px solid var(--border)",
+                  background: "var(--surface)",
+                }}
               >
                 Discutons
               </button>
@@ -126,7 +129,7 @@ export default function HeroSection() {
         </div>
 
         {/* ── RIGHT: Photo card ──────────────────────────── */}
-        <RevealOnScroll delay={0.3} className="hidden lg:block">
+        <RevealOnScroll delay={0.3} className="w-full max-w-[300px] sm:max-w-[340px] lg:max-w-none mx-auto lg:mx-0">
           <div className="relative">
 
             {/* Glow ring animé (Stitch pattern: gradient border + blur) */}
@@ -151,7 +154,7 @@ export default function HeroSection() {
               className="relative rounded-[26px] overflow-hidden"
               style={{
                 border: "1px solid rgba(255,20,147,0.25)",
-                background: "rgba(255,255,255,0.03)",
+                background: "var(--surface)",
                 backdropFilter: "blur(16px)",
               }}
             >
@@ -159,20 +162,20 @@ export default function HeroSection() {
               <div
                 className="w-full aspect-[3/4] relative flex items-end"
                 style={{
-                  background: "linear-gradient(160deg, #130009 0%, #0a0a0a 50%, #1a0010 100%)",
-                  minHeight: 400,
+                  background: "var(--photo-bg)",
+                  minHeight: "min(400px, 78vw)",
                 }}
               >
                 {/* Silhouette placeholder */}
-                { ma_pp? 
-                  <Image 
-                    src={ma_pp} 
+                {profileImage ? (
+                  <Image
+                    src={profileImage}
                     alt="Bi David Weslé IRIÉ"
                     fill
                     className="object-cover object-top"
                     priority
                   />
-                :
+                ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
                     {/* Glow de fond */}
                     <div
@@ -201,41 +204,31 @@ export default function HeroSection() {
                       <p className="font-mono text-[9px] tracking-[0.12em] text-zinc-700">
                       </p>
                     </div>
-                  </div>  
-                }
+                  </div>
+                )}
 
                 {/* Overlay dégradé bas */}
                 <div
                   className="absolute bottom-0 left-0 right-0 h-40"
-                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)" }}
+                  style={{ background: "var(--photo-caption)" }}
                 />
-
-                {/* Nom en bas de la carte */}
-                <div className="relative z-10 w-full px-6 pb-6">
-                  <p className="font-display font-black text-[18px] tracking-tight text-white">
-                    Bi David Weslé IRIÉ
-                  </p>
-                  <p className="font-mono text-[10px] tracking-[0.12em] uppercase text-pink-light mt-1">
-                    Full-Stack Developer · Abidjan 🇨🇮
-                  </p>
-                </div>
               </div>
             </div>
 
             {/* Badge flottant haut-gauche */}
-            <FloatingBadge
+            {/* <FloatingBadge
               icon="school"
               label="WeCode Epitech"
               sub="Coding Academy"
-              style={{ top: -16, left: -20, animationDelay: "0s" }}
-            />
+              className="top-3 left-3 sm:-top-4 sm:-left-5"
+            /> */}
 
             {/* Badge flottant bas-droite */}
             <FloatingBadge
               icon="code"
               label="Full-Stack"
               sub="Next.js · NestJS · Laravel"
-              style={{ bottom: 40, right: -24, animationDelay: "0.8s" }}
+              className="right-3 bottom-20 sm:right-[-24px] sm:bottom-10"
             />
 
             {/* Dot décoratif coin */}
@@ -252,7 +245,7 @@ export default function HeroSection() {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce-fade"
         style={{ opacity: 0.35 }}
       >
-        <span className="font-mono text-[10px] tracking-[0.1em] text-zinc-500 uppercase">Scroll</span>
+        <span className="font-mono text-[10px] tracking-[0.1em] uppercase" style={{ color: "var(--subtle)" }}>Scroll</span>
         <div className="w-px h-10" style={{ background: "linear-gradient(to bottom, transparent, #ffb0ca)" }} />
       </div>
     </section>

@@ -51,9 +51,9 @@ export default function ContactSection() {
               Discutons de{" "}
               <span className="gradient-text">votre projet.</span>
             </h2>
-            <p className="text-[16px] font-light text-zinc-400 leading-[1.8] mb-10">
+            <p className="text-[16px] font-light leading-[1.8] mb-10" style={{ color: "var(--muted)" }}>
               Ouvert aux opportunités de stage, aux collaborations techniques,
-              et aux projets ambitieux. N'hésitez pas à me contacter.
+              et aux projets ambitieux. N&apos;hésitez pas à me contacter.
             </p>
           </RevealOnScroll>
 
@@ -64,8 +64,8 @@ export default function ContactSection() {
                 <RevealOnScroll key={label} delay={(i + 1) * 0.1}>
                   <Tag
                     {...(href ? { href, target: "_blank", rel: "noreferrer" } : {})}
-                    className="flex items-center gap-4 text-zinc-400 text-[14px] transition-colors duration-200 hover:text-white"
-                    style={{ textDecoration: "none" }}
+                    className="flex items-center gap-4 text-[14px] transition-colors duration-200 hover:text-pink-light"
+                    style={{ color: "var(--muted)", textDecoration: "none" }}
                   >
                     <span
                       className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border"
@@ -98,7 +98,7 @@ export default function ContactSection() {
                 <label
                   htmlFor={id}
                   className="font-mono text-[10px] tracking-[0.12em] uppercase"
-                  style={{ color: "rgba(255,255,255,0.40)" }}
+                  style={{ color: "var(--subtle)" }}
                 >
                   {label}
                 </label>
@@ -107,17 +107,18 @@ export default function ContactSection() {
                   type={type}
                   placeholder={placeholder}
                   required
-                  className="w-full rounded-[14px] px-5 py-4 text-[15px] text-white outline-none transition-all duration-300"
+                  className="w-full rounded-[14px] px-5 py-4 text-[15px] outline-none transition-all duration-300"
                   style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.10)",
+                    background: "var(--input-bg)",
+                    border: "1px solid var(--border)",
+                    color: "var(--foreground)",
                   }}
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = "#ffb0ca";
                     e.currentTarget.style.boxShadow   = "0 0 0 3px rgba(255,20,147,0.08)";
                   }}
                   onBlur={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.10)";
+                    e.currentTarget.style.borderColor = "var(--border)";
                     e.currentTarget.style.boxShadow   = "none";
                   }}
                 />
@@ -128,7 +129,7 @@ export default function ContactSection() {
               <label
                 htmlFor="message"
                 className="font-mono text-[10px] tracking-[0.12em] uppercase"
-                style={{ color: "rgba(255,255,255,0.40)" }}
+                style={{ color: "var(--subtle)" }}
               >
                 Votre Message
               </label>
@@ -137,17 +138,18 @@ export default function ContactSection() {
                 rows={5}
                 placeholder="Parlez-moi de vos besoins ou de votre offre de stage..."
                 required
-                className="w-full rounded-[14px] px-5 py-4 text-[15px] text-white outline-none transition-all duration-300 resize-none"
+                className="w-full rounded-[14px] px-5 py-4 text-[15px] outline-none transition-all duration-300 resize-none"
                 style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.10)",
+                  background: "var(--input-bg)",
+                  border: "1px solid var(--border)",
+                  color: "var(--foreground)",
                 }}
                 onFocus={(e) => {
                   e.currentTarget.style.borderColor = "#ffb0ca";
                   e.currentTarget.style.boxShadow   = "0 0 0 3px rgba(255,20,147,0.08)";
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.10)";
+                  e.currentTarget.style.borderColor = "var(--border)";
                   e.currentTarget.style.boxShadow   = "none";
                 }}
               />

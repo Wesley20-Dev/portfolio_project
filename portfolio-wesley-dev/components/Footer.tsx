@@ -5,13 +5,13 @@ export default function Footer() {
   return (
     <footer
       className="px-6 md:px-16 py-12 flex flex-col md:flex-row justify-between items-center gap-5 relative z-10"
-      style={{ borderTop: "1px solid rgba(255,255,255,0.10)" }}
+      style={{ borderTop: "1px solid var(--border)" }}
     >
       <div className="text-center md:text-left">
         <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-pink-light">
           WESLEY.DEV
         </p>
-        <p className="text-[13px] text-zinc-500 mt-1">
+        <p className="text-[13px] mt-1" style={{ color: "var(--subtle)" }}>
           © {new Date().getFullYear()} Bi David Weslé IRIÉ · Développeur Full-Stack Junior
         </p>
       </div>
@@ -27,7 +27,8 @@ export default function Footer() {
             href={href}
             target="_blank"
             rel="noreferrer"
-            className="text-[13px] text-zinc-500 hover:text-white transition-colors duration-200"
+            className="text-[13px] hover:text-pink-light transition-colors duration-200"
+            style={{ color: "var(--subtle)" }}
           >
             {label}
           </a>
