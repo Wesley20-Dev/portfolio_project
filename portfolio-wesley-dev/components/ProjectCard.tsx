@@ -27,10 +27,11 @@ interface Props extends Project {
 }
 
 /** Construit l'URL Thum.io pour capturer automatiquement un site web */
-function buildThumioUrl(targetUrl: string): string {
-  // Thum.io — API publique de screenshot (aucune clé requise pour l'usage basique)
-  // Format : https://image.thum.io/get/width/1280/crop/720/{url}
-  return `https://image.thum.io/get/width/1280/crop/720/${targetUrl}`;
+function buildMicrolinkUrl(targetUrl: string): string {
+  // Microlink API — capture d'écran automatique, aucune clé requise
+  // https://microlink.io/docs/api/parameters/screenshot
+  const encoded = encodeURIComponent(targetUrl);
+  return `https://api.microlink.io/?url=${encoded}&screenshot=true&meta=false&embed=screenshot.url`;
 }
 
 export default function ProjectCard({
@@ -50,7 +51,7 @@ export default function ProjectCard({
     image
       ? image
       : screenshotUrl
-      ? { src: buildThumioUrl(screenshotUrl), alt: `Capture du projet ${title}` }
+      ? { src: buildMicrolinkUrl(screenshotUrl), alt: `Capture du projet ${title}` }
       : null;
   return (
     <RevealOnScroll>

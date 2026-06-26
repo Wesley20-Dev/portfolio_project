@@ -8,7 +8,7 @@ const STATS = [
   { num: "BTS",    label: "Informatique IDA" },
   { num: "Epitech",label: "WeCode Academy" },
   { num: "4+",     label: "Projets livrés" },
-  { num: "Full",   label: "Stack Developer" },
+  { num: "Full-Stack",   label: " Developer" },
 ];
 
 export default function AboutSection() {
@@ -28,16 +28,16 @@ export default function AboutSection() {
         </h2>
       </RevealOnScroll>
 
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-16 md:gap-20 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-5 md:gap-13 items-start">
 
         {/* Left — stats + experience */}
         <div>
           <RevealOnScroll delay={0.1}>
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-1  md:grid-cols-2 gap-5 md:gap-2">
               {STATS.map(({ num, label }) => (
                 <div
                   key={label}
-                  className="p-7 rounded-[16px] border border-white/10"
+                  className="p-7 md:p-2 lg:p-7 rounded-[16px] border border-white/10"
                   style={{ background: "var(--surface)", borderColor: "var(--border)" }}
                 >
                   <p

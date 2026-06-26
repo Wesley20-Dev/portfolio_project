@@ -93,7 +93,7 @@ export default function HeroSection() {
                 WeCode (Coding Academy by Epitech)
               </strong>
               . Conçoit des architectures web et mobiles scalables, robustes et
-              hautement interactives — avec une passion pour l&apos;ingénierie logicielle soignée.
+              hautement interactives avec une passion pour l&apos;ingénierie logicielle soignée.
             </p>
           </RevealOnScroll>
 

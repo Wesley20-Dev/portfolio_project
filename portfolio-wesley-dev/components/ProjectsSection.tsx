@@ -61,13 +61,13 @@ const PROJECTS: (Project & { reverse?: boolean })[] = [
       { text: "dispatch(updateCards(cards))" },
     ],
     // screenshotUrl absent → affiche le codeLines
-    href: "https://expo.dev/artifacts/eas/bGbn2At4ZJ4ox7PuF2aE1j.apk",
+    href: "https://github.com/Wesley20-Dev/TrellTech_project",
     reverse: true,
   },
   {
     // 📸 Screenshot Thum.io activé — remplace le codeLines automatiquement
     title: "Réseau Social & Capture Automatisée",
-    description: "Plateforme communautaire complète avec gestion des commentaires et un service automatisé de captures d'écran des posts via job queue.",
+    description: "Plateforme communautaire permettant aux utilisateurs de publier des contenus, d'interagir via un système de commentaires et intègre un service automatisé de capture d'écran des publications provenant d'Internet.",
     tags: ["Laravel", "Vue.js", "MySQL", "Tailwind CSS"],
     primaryTag: "Social",
     secondaryTag: "Full-Stack",
@@ -86,7 +86,7 @@ const PROJECTS: (Project & { reverse?: boolean })[] = [
       { hl: true, text: "// Commentaires" },
       { text: "$post->comments()->create($data)" },
     ],
-    href: "https://github.com/Wesley20-Dev",
+    href: "https://github.com/Wesley20-Dev/Yowl",
     reverse: false,
   },
   {

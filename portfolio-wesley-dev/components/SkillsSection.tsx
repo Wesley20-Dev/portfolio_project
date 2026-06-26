@@ -240,7 +240,7 @@ function SkillChip({ name, index }: { name: string; index: number }) {
       </div>
       {/* Label */}
       <span
-        className="font-mono text-[9px] tracking-[0.08em] uppercase text-center transition-colors duration-200 group-hover:text-pink-light leading-tight"
+        className="font-mono text-[9px] tracking-[0.08em] uppercase text-center transition-colors duration-200 group-hover:text-white leading-tight"
         style={{ color: "var(--muted)" }}
       >
         {name}
